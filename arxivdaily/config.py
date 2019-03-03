@@ -24,7 +24,8 @@ HTML_HEXT = """
     </ul>
 </div>
 """
-HTML_URL_TEMPLATE = 'https://arxiv.org/list/{category}/recent'
+HTML_URL_TEMPLATE_RECENT = 'https://arxiv.org/list/{category}/recent'
+HTML_URL_TEMPLATE_MINIMAL = 'https://arxiv.org/list/{category}/pastweek?show=5'
 MAX_CONNECTIONS = 4
 ON_SERVERLESS = bool(os.getenv('GCLOUD_PROJECT'))
 PACKAGE_NAME = Path(__file__).parent.stem
