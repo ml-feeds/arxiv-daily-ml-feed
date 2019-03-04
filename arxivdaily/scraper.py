@@ -5,7 +5,7 @@ from typing import Dict, Tuple
 
 import aiohttp
 
-from arxivdaily import config
+from . import config
 
 config.configure_logging()
 
