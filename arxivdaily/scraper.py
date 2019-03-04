@@ -17,11 +17,18 @@ async def _get_pages(urls: List[str]) -> Dict[str, bytes]:
     timeout = aiohttp.ClientTimeout(total=config.HTTP_TIMEOUT)
     pages = {}
     async with aiohttp.ClientSession(timeout=timeout) as session:
-        for url in urls:
+
+        async def get_page(url) -> bytes:
             log.debug('Getting page for URL %s', url)
             async with session.get(url) as resp:
                 assert resp.status == 200
-                pages[url] = await resp.text()
+                return await resp.text()
+
+        for url in urls:
+            pages[url] = asyncio.create_task(get_page(url))
+            log.debug('Created task for URL %s', url)
+        for url in urls:
+            pages[url] = await pages[url]
             log.debug('Got page for URL %s', url)
     return pages
 
@@ -29,7 +36,7 @@ async def _get_pages(urls: List[str]) -> Dict[str, bytes]:
 def get_pages() -> Dict[str, bytes]:
     log.debug('Getting pages.')
     urls = [config.HTML_URL_TEMPLATE_MINIMAL.format(category=category) for category in config.CATEGORIES]
-    return asyncio.run(_get_pages(urls))
+    return asyncio.run(_get_pages(urls), debug=True)
 
 
 if __name__ == '__main__':
