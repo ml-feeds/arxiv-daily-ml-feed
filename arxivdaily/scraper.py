@@ -15,9 +15,9 @@ async def _get_pages() -> Dict[str, str]:
     log.debug('Getting pages.')
     tasks = {}
     pages = {}
-    # conn = aiohttp.TCPConnector(limit=config.MAX_CONNECTIONS)
+    connector = aiohttp.TCPConnector(limit=config.MAX_CONNECTIONS)
     timeout = aiohttp.ClientTimeout(total=config.HTTP_TIMEOUT)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
+    async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
 
         async def get_page(url: str) -> str:
             log.debug('Getting page for URL %s', url)
