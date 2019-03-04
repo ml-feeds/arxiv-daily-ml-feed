@@ -38,7 +38,7 @@ async def _get_pages() -> Dict[str, str]:
 def get_pages() -> Dict[str, str]:
     log.debug('Reading pages.')
     time_start = time.monotonic()
-    pages = asyncio.run(_get_pages(), debug=True)
+    pages = asyncio.run(_get_pages(), debug=config.DEBUG_ASYNCIO)
     log.info('Read %s pages in %.1fs.', len(pages), time.monotonic() - time_start)
     return pages
 

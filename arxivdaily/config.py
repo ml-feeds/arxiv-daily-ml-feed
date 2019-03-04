@@ -29,6 +29,7 @@ HTML_URL_TEMPLATE_MINIMAL = 'https://arxiv.org/list/{category}/pastweek?show=5'
 HTTP_TIMEOUT = 30
 MAX_CONNECTIONS = 8
 ON_SERVERLESS = bool(os.getenv('GCLOUD_PROJECT'))
+DEBUG_ASYNCIO = not ON_SERVERLESS
 PACKAGE_NAME = Path(__file__).parent.stem
 REPO_URL = 'https://github.com/ml-feeds/arxiv-daily-ml-feed'
 
