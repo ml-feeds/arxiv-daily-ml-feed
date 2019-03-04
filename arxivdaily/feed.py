@@ -41,14 +41,14 @@ class Feed:
 
             url_having_count = urlparse(item['link'][1])
             if parse_qs(url_having_count.query).get('skip'):
-                num_entries = int(parse_qs(url_having_count.query)['skip'][0])
+                count = int(parse_qs(url_having_count.query)['skip'][0])
             else:
-                num_entries = int(fullmatch(r'item(?P<num>\d+)', url_having_count.fragment).groupdict()['num']) - 1  # type: ignore
-            assert num_entries > 0
+                count = int(fullmatch(r'item(?P<num>\d+)', url_having_count.fragment).groupdict()['num']) - 1  # type: ignore
+            assert count > 0
 
             date_ = item['date'][0]
             title = item['title']
-            title = f'{category} ({title}): {num_entries} new entries for {date_}'
+            title = f'{category} ({title}): {count} new entries for {date_}'
             link = f'{config.HTML_URL_TEMPLATE_RECENT.format(category=category)}#{parse_date(date_).date()}'
             entry.title(title)
             entry.link(href=link)
