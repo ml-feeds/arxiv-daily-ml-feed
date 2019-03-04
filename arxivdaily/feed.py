@@ -1,7 +1,8 @@
-import datetime
 from functools import lru_cache
 from json import dumps, loads
 import logging
+from re import fullmatch
+from urllib.parse import parse_qs, urlparse
 
 from cachetools.func import ttl_cache
 from dateutil.parser import parse as parse_date
@@ -35,12 +36,19 @@ class Feed:
         pages = {category: self._hext_rule_extract(Html(text))[0] for category, text in pages.items()}
 
         feed = self._init_feed()
-        # stat.ML: 47 new entries for Thu, 28 Feb 2019 | https://arxiv.org/list/stat.ML/recent#2019-02-28
         for category, item in pages.items():
             entry = feed.add_entry(order='append')
-            num_entries = 0
-            date_ = item["date"][0]
-            title = f'{category}: {num_entries} new entries for {date_}'
+
+            url_having_count = urlparse(item['link'][1])
+            if parse_qs(url_having_count.query).get('skip'):
+                num_entries = int(parse_qs(url_having_count.query)['skip'][0])
+            else:
+                num_entries = int(fullmatch(r'item(?P<num>\d+)', url_having_count.fragment).groupdict()['num']) - 1  # type: ignore
+            assert num_entries > 0
+
+            date_ = item['date'][0]
+            title = item['title']
+            title = f'{category} ({title}): {num_entries} new entries for {date_}'
             link = f'{config.HTML_URL_TEMPLATE_RECENT.format(category=category)}#{parse_date(date_).date()}'
             entry.title(title)
             entry.link(href=link)
