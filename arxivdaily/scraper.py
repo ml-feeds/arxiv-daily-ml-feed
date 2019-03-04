@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import time
 from typing import Dict, Tuple
 
 import aiohttp
@@ -12,7 +13,7 @@ log = logging.getLogger(__name__)
 
 
 async def _get_pages() -> Dict[str, str]:
-    log.debug('Getting pages.')
+    log.debug('Reading pages.')
     connector = aiohttp.TCPConnector(limit=config.MAX_CONNECTIONS)
     timeout = aiohttp.ClientTimeout(total=config.HTTP_TIMEOUT)
     async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
@@ -25,18 +26,20 @@ async def _get_pages() -> Dict[str, str]:
                 return category, await response.text()
 
         awaitables = (get_page(category) for category in config.CATEGORIES)
-        log.debug('Getting page texts.')
+        log.debug('Reading page texts.')
+        time_start = time.monotonic()
         pages = dict(await asyncio.gather(*awaitables))
 
-    log.debug('Got pages.')
+    log.debug('Read %s pages in %.1fs.', len(pages), time.monotonic() - time_start)
     pages = {category: pages[category] for category in config.CATEGORIES}
     return pages
 
 
 def get_pages() -> Dict[str, str]:
-    log.debug('Getting pages.')
+    log.debug('Reading pages.')
+    time_start = time.monotonic()
     pages = asyncio.run(_get_pages(), debug=True)
-    log.debug('Got pages.')
+    log.info('Read %s pages in %.1fs.', len(pages), time.monotonic() - time_start)
     return pages
 
 
