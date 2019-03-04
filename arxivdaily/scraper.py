@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from typing import Dict
+from typing import Dict, Tuple
 
 import aiohttp
 
@@ -13,25 +13,23 @@ log = logging.getLogger(__name__)
 
 async def _get_pages() -> Dict[str, str]:
     log.debug('Getting pages.')
-    tasks = {}
-    pages = {}
     connector = aiohttp.TCPConnector(limit=config.MAX_CONNECTIONS)
     timeout = aiohttp.ClientTimeout(total=config.HTTP_TIMEOUT)
     async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
 
-        async def get_page(url: str) -> str:
-            log.debug('Getting page for URL %s', url)
-            async with session.get(url) as resp:
-                assert resp.status == 200
-                return await resp.text()
-
-        for category in config.CATEGORIES:
+        async def get_page(category: str) -> Tuple[str, str]:
+            log.debug('Requesting URL for %s.', category)
             url = config.HTML_URL_TEMPLATE_MINIMAL.format(category=category)
-            tasks[category] = asyncio.create_task(get_page(url))
-            log.debug('Created task for %s.', category)
-        for category in config.CATEGORIES:
-            pages[category] = await tasks[category]
-            log.debug('Got page for %s having size %s.', category, len(pages[category]))
+            async with session.get(url) as response:
+                assert response.status == 200
+                return category, await response.text()
+
+        awaitables = (get_page(category) for category in config.CATEGORIES)
+        log.debug('Getting page texts.')
+        pages = dict(await asyncio.gather(*awaitables))
+
+    log.debug('Got pages.')
+    pages = {category: pages[category] for category in config.CATEGORIES}
     return pages
 
 
