@@ -56,6 +56,11 @@ LOGGING = {  # Ref: https://docs.python.org/3/howto/logging.html#configuring-log
             'handlers': ['console'],
             'propagate': False,
         },
+        'asyncio': {
+            'level': 'INFO',
+            'handlers': ['console'],
+            'propagate': False,
+        },
         '': {
             'level': 'DEBUG',
             'handlers': ['console'],
