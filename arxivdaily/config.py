@@ -13,7 +13,7 @@ def configure_logging() -> None:
 CACHE_TTL = datetime.timedelta(hours=1, minutes=-4).total_seconds()
 CATEGORIES = 'stat.ML', 'cs.LG', 'cs.NE', 'cs.AI', 'cs.CL', 'cs.CV', 'cs.IR', 'eess.IV'
 FEED_DESCRIPTION = 'As a disclaimer, this is an unofficial feed and has no affiliation with arXiv.'
-FEED_TITLE = 'arXiv ML/AI daily updates (unaffiliated)'
+FEED_TITLE = 'arXiv ML/AI daily meta updates (unaffiliated)'
 HTML_HEXT = """
 <div id="dlpage">
     <h1 @text:title/>
