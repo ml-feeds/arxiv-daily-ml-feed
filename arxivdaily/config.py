@@ -24,7 +24,7 @@ HTML_HEXT = """
     </ul>
 </div>
 """
-HTML_URL_TEMPLATE_RECENT = 'https://arxiv.org/list/{category}/recent'
+HTML_URL_TEMPLATE_RECENT = 'https://arxiv.org/list/{category}/recent?show={count}'
 HTML_URL_TEMPLATE_MINIMAL = 'https://arxiv.org/list/{category}/pastweek?show=5'
 HTTP_TIMEOUT = 30
 MAX_CONNECTIONS = 8

@@ -49,7 +49,7 @@ class Feed:
             date_ = item['date'][0]
             title = item['title']
             title = f'{category} ({title}): {count} new entries for {date_}'
-            link = f'{config.HTML_URL_TEMPLATE_RECENT.format(category=category)}#{parse_date(date_).date()}'
+            link = f'{config.HTML_URL_TEMPLATE_RECENT.format(category=category, count=count)}#{parse_date(date_).date()}'
             entry.title(title)
             entry.link(href=link)
             entry.guid(link, permalink=False)
