@@ -48,7 +48,8 @@ class Feed:
 
             date_ = item['date'][0]
             title = item['title']
-            title = f'{category} ({title}): {count} new entries for {date_}'
+            count_noun = 'entries' if count > 1 else 'entry'
+            title = f'{category} ({title}): {count} new {count_noun} for {date_}'
             link = f'{config.HTML_URL_TEMPLATE_RECENT.format(category=category, count=count)}#{parse_date(date_).date()}'
             entry.title(title)
             entry.link(href=link)
