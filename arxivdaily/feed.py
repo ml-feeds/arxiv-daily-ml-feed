@@ -37,6 +37,7 @@ class Feed:
 
         feed = self._init_feed()
         for category, item in pages.items():
+            log.debug('Processing page for %s.', category)
             entry = feed.add_entry(order='append')
 
             url_having_count = urlparse(item['link'][1])
