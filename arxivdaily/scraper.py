@@ -22,7 +22,10 @@ async def _get_pages() -> Dict[str, str]:
             log.debug('Requesting URL for %s.', category)
             url = config.HTML_URL_TEMPLATE_MINIMAL.format(category=category)
             async with session.get(url) as response:
-                assert response.status == 200
+                status = response.status
+                logger = log.info if status == 200 else log.error
+                logger('Received response with status %s for %s.', response.status, url)
+                assert status == 200
                 return category, await response.text()
 
         awaitables = (get_page(category) for category in config.CATEGORIES)
