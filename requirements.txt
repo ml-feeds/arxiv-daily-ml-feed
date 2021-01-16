@@ -4,23 +4,52 @@
 #
 #    pip-compile
 #
-aiohttp==3.6.2
-async-timeout==3.0.1      # via aiohttp
-attrs==19.3.0             # via aiohttp
-cachetools==4.0.0
-chardet==3.0.4            # via aiohttp
-click==7.0                # via flask
+aiohttp==3.7.3
+    # via -r requirements.in
+async-timeout==3.0.1
+    # via aiohttp
+attrs==20.3.0
+    # via aiohttp
+cachetools==4.2.0
+    # via -r requirements.in
+chardet==3.0.4
+    # via aiohttp
+click==7.1.2
+    # via flask
 feedgen==0.9.0
-flask==1.1.1
-hext==0.2.4
-humanize==1.0.0
-idna==2.8                 # via yarl
-itsdangerous==1.1.0       # via flask
-jinja2==2.11.1            # via flask
-lxml==4.5.0               # via feedgen
-markupsafe==1.1.1         # via jinja2
-multidict==4.7.4          # via aiohttp, yarl
-python-dateutil==2.8.1    # via feedgen
-six==1.14.0               # via python-dateutil
-werkzeug==1.0.0           # via flask
-yarl==1.4.2               # via aiohttp
+    # via -r requirements.in
+flask==1.1.2
+    # via -r requirements.in
+hext==0.2.5
+    # via -r requirements.in
+humanize==3.2.0
+    # via -r requirements.in
+idna==3.1
+    # via yarl
+itsdangerous==1.1.0
+    # via flask
+jinja2==2.11.2
+    # via flask
+lxml==4.6.2
+    # via feedgen
+markupsafe==1.1.1
+    # via jinja2
+multidict==5.1.0
+    # via
+    #   aiohttp
+    #   yarl
+python-dateutil==2.8.1
+    # via feedgen
+six==1.15.0
+    # via python-dateutil
+typing-extensions==3.7.4.3
+    # via
+    #   aiohttp
+    #   yarl
+werkzeug==1.0.1
+    # via flask
+yarl==1.6.3
+    # via aiohttp
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
