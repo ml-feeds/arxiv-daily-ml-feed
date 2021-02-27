@@ -4,13 +4,13 @@
 #
 #    pip-compile
 #
-aiohttp==3.7.3
+aiohttp==3.7.4
     # via -r requirements.in
 async-timeout==3.0.1
     # via aiohttp
 attrs==20.3.0
     # via aiohttp
-cachetools==4.2.0
+cachetools==4.2.1
     # via -r requirements.in
 chardet==3.0.4
     # via aiohttp
@@ -28,7 +28,7 @@ idna==3.1
     # via yarl
 itsdangerous==1.1.0
     # via flask
-jinja2==2.11.2
+jinja2==2.11.3
     # via flask
 lxml==4.6.2
     # via feedgen
