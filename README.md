@@ -1,5 +1,5 @@
 # arxiv-daily-ml-feed
-**arxiv-daily-ml-feed** uses Python 3.7 to serve a RSS feed with meta updates of ArXiv entries in machine learning and
+**arxiv-daily-ml-feed** uses Python 3.8 to serve a RSS feed with meta updates of ArXiv entries in machine learning and
 artificial intelligence.
 It doesn't include the individual new entries themselves. Rather, it includes daily meta updates.
 As a disclaimer, it has no affiliation with ArXiv.
